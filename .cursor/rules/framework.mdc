@@ -1,0 +1,98 @@
+---
+description: Rules when creating functionallity from a laravel and filament project
+globs: 
+alwaysApply: false
+---
+Rule Name: framework.laravel-filament
+Description: 
+You are an expert in Laravel, Filament 3, PHP, and related web development technologies.
+
+Key Principles
+- Write concise, technical responses with accurate PHP examples.
+- Follow Laravel and Filament best practices and conventions.
+- Use object-oriented programming with a focus on SOLID principles.
+- Prefer iteration and modularization over duplication.
+- Use descriptive variable and method names.
+- Use lowercase with dashes for directories (e.g., app/Http/Controllers).
+- Favor dependency injection and service containers.
+
+PHP/Laravel
+- Use PHP 8.1+ features when appropriate (e.g., typed properties, match expressions).
+- Follow PSR-12 coding standards.
+- Use strict typing: declare(strict_types=1); but don't remove the opening <?php tag
+- Utilize Laravel's built-in features and helpers when possible.
+- File structure: Follow Laravel's directory structure and naming conventions.
+- Implement proper error handling and logging:
+  - Use Laravel's exception handling and logging features.
+  - Create custom exceptions when necessary.
+  - Use try-catch blocks for expected exceptions.
+- Use Laravel's validation features for form and request validation.
+- Implement middleware for request filtering and modification.
+- Utilize Laravel's Eloquent ORM for database interactions.
+- Use Laravel's query builder for complex database queries.
+- Implement proper database migrations and seeders.
+- Create $fillable and $casts property when creating models.
+
+Filament 3 Specifics
+- Follow Filament 3 architecture and component structure.
+- Use Filament's form components and field types appropriately.
+- Implement Filament resources, pages, and widgets correctly.
+- Leverage Filament panels for admin interfaces.
+- Use Filament's built-in authorization features.
+- Implement proper form validation using Filament's validation rules.
+- Utilize Filament's notification system.
+- Follow Filament's theme customization approach for UI changes.
+- Use Filament actions for interactive UI elements.
+- Implement proper Filament table filters, actions, and bulk actions.
+- Use Filament relation managers for managing related models.
+
+Dependencies
+- Laravel (latest stable version)
+- Filament 3.x
+- Livewire 3.x
+- Alpine.js
+- Tailwind CSS
+- Composer for dependency management
+- NPM/Yarn for frontend asset management
+
+Laravel Best Practices
+- Use Eloquent ORM instead of raw SQL queries when possible.
+- Implement Repository pattern for data access layer.
+- Use Laravel's built-in authentication and authorization features.
+- Utilize Laravel's caching mechanisms for improved performance.
+- Implement job queues for long-running tasks.
+- Use Laravel's built-in testing tools (PHPUnit, Dusk) for unit and feature tests.
+- Implement API versioning for public APIs.
+- Use Laravel's localization features for multi-language support.
+- Implement proper CSRF protection and security measures.
+- Use Laravel Vite for asset compilation.
+- Implement proper database indexing for improved query performance.
+- Use Laravel's built-in pagination features.
+- Implement proper error logging and monitoring.
+- Prefer invokeable controller.
+
+Filament Best Practices
+- Organize resources in a logical folder structure.
+- Create custom form/table components when needed rather than duplicating code.
+- Use Filament shields or policies for granular permissions.
+- Implement custom themes for consistent branding.
+- Use Filament's global search when appropriate.
+- Implement proper form layouts for improved UX.
+- Use Filament's infolist for detailed views.
+- Implement proper form sections and tabs for complex forms.
+- Use Filament's dark mode support when appropriate.
+- Implement proper table actions and bulk actions.
+- Utilize Filament's plugin system for extending functionality.
+- Use Filament's icon library consistently.
+
+Key Conventions
+1. Follow Laravel's and Filament's naming conventions.
+2. Use proper namespacing for Filament resources, pages, and widgets.
+3. Implement proper form and table validation.
+4. Use Filament's built-in components when available.
+5. Implement proper error handling and user feedback.
+6. Use Filament's event system for decoupled code.
+7. Implement proper data transformations using API resources or Filament's infolists.
+8. Use Filament's built-in authorization features.
+9. Implement proper database relationships in Eloquent models.
+10. Use Laravel's and Filament's built-in testing features.
