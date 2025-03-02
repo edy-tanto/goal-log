@@ -229,7 +229,7 @@ class TournamentMatchResource extends Resource
                     ->schema([
                         Forms\Components\Placeholder::make('player_stats_description')
                             ->label('')
-                            ->content('Player statistics can be added after the match is completed.')
+                            ->content('Player statistics can be added after the match is completed. All statistics default to zero.')
                             ->columnSpanFull(),
                             
                         Forms\Components\Repeater::make('statistics')
@@ -280,7 +280,8 @@ class TournamentMatchResource extends Resource
                                         Forms\Components\TextInput::make('goals')
                                             ->numeric()
                                             ->minValue(0)
-                                            ->default(0),
+                                            ->default(0)
+                                            ->suffixIcon('heroicon-m-star'),
                                             
                                         Forms\Components\TextInput::make('assists')
                                             ->numeric()
@@ -319,6 +320,21 @@ class TournamentMatchResource extends Resource
                                             ->default(0),
                                     ]),
                             ])
+                            ->minItems(0)
+                            ->mutateRelationshipDataBeforeCreateUsing(function (array $data): array {
+                                // Ensure all numeric fields have a zero default if empty
+                                $fields = ['goals', 'assists', 'yellow_cards', 'red_cards', 
+                                           'minutes_played', 'shots_on_target', 
+                                           'shots_off_target', 'passes_completed'];
+                                
+                                foreach ($fields as $field) {
+                                    if (!isset($data[$field]) || $data[$field] === '') {
+                                        $data[$field] = 0;
+                                    }
+                                }
+                                
+                                return $data;
+                            })
                             ->columns(1)
                             ->collapsible()
                             ->itemLabel(function (array $state): ?string {
