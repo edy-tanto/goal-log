@@ -32,6 +32,9 @@ class TournamentService
             ->orderBy('seed')
             ->get();
 
+
+        TournamentRound::where('tournament_id', $tournament->id)->delete();
+
         // Create rounds
         for ($roundNumber = 1; $roundNumber <= $roundCount; $roundNumber++) {
             $round = TournamentRound::create([
