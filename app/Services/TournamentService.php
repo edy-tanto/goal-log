@@ -15,14 +15,16 @@ class TournamentService
 {
     public function generateBrackets(Tournament $tournament): void
     {
-        $teamCount = $tournament->teams()->count();
-        
-        if ($teamCount < 2) {
-            throw new InvalidArgumentException('Tournament must have at least 2 teams');
+        // Check if there are already matches for this tournament
+        if ($tournament->matches()->exists()) {
+            throw new InvalidArgumentException('Cannot generate brackets: Tournament already has matches');
         }
 
-        // Calculate the number of rounds needed
-        $roundCount = (int) ceil(log($teamCount, 2));
+        // Use the team_count property from the Tournament model rather than counting actual teams
+        $configuredTeamCount = $tournament->team_count;
+
+        // Calculate the number of rounds needed based on the configured team count
+        $roundCount = (int) ceil(log($configuredTeamCount, 2));
         $perfectBracketSize = pow(2, $roundCount);
 
         // Get seeded teams
@@ -39,11 +41,11 @@ class TournamentService
                 'status' => $roundNumber === 1 ? 'in_progress' : 'pending',
             ]);
 
-            if ($roundNumber === 1) {
-                $this->generateFirstRoundMatches($round, $teams, $perfectBracketSize);
-            } else {
-                $this->generateAdvancementMatches($round, pow(2, $roundCount - $roundNumber + 1) / 2);
-            }
+            // if ($roundNumber === 1) {
+            //     $this->generateFirstRoundMatches($round, $teams, $perfectBracketSize);
+            // } else {
+            //     $this->generateAdvancementMatches($round, pow(2, $roundCount - $roundNumber + 1) / 2);
+            // }
         }
 
         $tournament->update([

@@ -14,6 +14,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Filament\Notifications\Notification;
 
 class TournamentResource extends Resource
 {
@@ -94,11 +95,25 @@ class TournamentResource extends Resource
             ])
             ->actions([
                 Tables\Actions\Action::make('generate_brackets')
+                    ->label('Generate Brackets')
                     ->action(function (Tournament $record, TournamentService $service) {
-                        $service->generateBrackets($record);
+                        try {
+                            $service->generateBrackets($record);
+                            
+                            Notification::make()
+                                ->title("Generated brackets for {$record->name}")
+                                ->success()
+                                ->send();
+                        } catch (\Exception $e) {
+                            Notification::make()
+                                ->title('Failed to generate brackets')
+                                ->body($e->getMessage())
+                                ->danger()
+                                ->send();
+                        }
                     })
                     ->requiresConfirmation()
-                    ->visible(fn (Tournament $record): bool => $record->status === 'registration')
+                    ->visible(fn (Tournament $record): bool => !$record->matches()->exists())
                     ->color('success')
                     ->icon('heroicon-o-play'),
                 Tables\Actions\ViewAction::make(),
